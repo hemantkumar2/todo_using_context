@@ -9,12 +9,10 @@ import useLocalStorageState from "./Hooks/useLocalStorageState";
 import TodoList from "./components/TodoList";
 import TodoForm from "./components/TodoForm";
 import useTodoState from "./Hooks/useTodoState";
+import { TodosProvider } from "./contexts/todos.context";
 
 const TodoApp = () => {
   const initialTodos = [{ id: 1, task: "Learn the HOOKS", completed: true }];
-  const { todos, addTodo, removeTodo, updateTodo, toggleTodo } = useTodoState(
-    initialTodos
-  );
   return (
     <Paper
       style={{ padding: 0, margin: 0, height: "100vh", background: "#fafafa" }}
@@ -26,13 +24,10 @@ const TodoApp = () => {
       </AppBar>
       <Grid container justify="center" style={{ marginTop: "1rem" }}>
         <Grid item xs={11} md={8} lg={4}>
-          <TodoForm addTodo={addTodo} />
-          <TodoList
-            todos={todos}
-            removeTodo={removeTodo}
-            toggleTodo={toggleTodo}
-            updateTodo={updateTodo}
-          />
+          <TodosProvider>
+            <TodoForm />
+            <TodoList />
+          </TodosProvider>
         </Grid>
       </Grid>
     </Paper>
