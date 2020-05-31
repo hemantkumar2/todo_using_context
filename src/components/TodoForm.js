@@ -3,7 +3,7 @@ import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import useInputState from "../Hooks/useInputState";
-import { TodosContext } from "../contexts/todos.context";
+import { DispatchContext } from "../contexts/todos.context";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 const TodoForm = () => {
   const classes = useStyles();
   const [task, setTask, resetTask] = useInputState("");
-  const { addTodo } = useContext(TodosContext);
+  const dispatch = useContext(DispatchContext);
   return (
     <Paper style={{ margin: "1rem 0", padding: "0 1rem" }}>
       <form
@@ -25,7 +25,7 @@ const TodoForm = () => {
         autoComplete="off"
         onSubmit={(e) => {
           e.preventDefault();
-          addTodo(task);
+          dispatch({ type: "ADD", task });
           resetTask();
         }}
       >
